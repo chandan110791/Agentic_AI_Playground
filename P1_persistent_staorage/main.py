@@ -92,14 +92,14 @@ async def call_asynch_message_process(runner,sessionid,usermessage:str,user_id:s
             response_start = time.time()
             async for event in runner.run_async(
                 session_id=sessionid,new_message=Content,user_id=user_id):
-                await display(event)
+                display(event)
         except Exception as e:
              print(f"error during req :: {e}")
 
 
 
 
-async def display_state(session_service,app_name,user_id,session_id):
+def display_state(session_service,app_name,user_id,session_id):
     """
     Display the current state of the session for the given app and user.
     Args:
@@ -120,7 +120,7 @@ async def display_state(session_service,app_name,user_id,session_id):
 
                 
 
-async def display(event):
+def display(event):
     """
         Display the content of an event, including text, tool responses, and code execution results.
 
@@ -192,9 +192,9 @@ async def main():
         if usermessage.lower() in ["end","exit"]:
             print("Good bye")
             break
-        await display_state(session_service,app_name,user_id,session_id)
+        display_state(session_service,app_name,user_id,session_id)
         await call_asynch_message_process(Runner,session_id,usermessage,user_id)
-        await display_state(session_service,app_name,user_id,session_id)
+        display_state(session_service,app_name,user_id,session_id)
 
 
 
