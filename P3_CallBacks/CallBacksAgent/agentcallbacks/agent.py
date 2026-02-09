@@ -54,5 +54,5 @@ def after_agent_callback(callback_context:CallbackContext)->Optional[types.Conte
 
 
 
-root_agent = LlmAgent(name="agentcallbacks",model="",instruction="You are a LLM.We are here to demonstrate agent callbacks. You have below tool available to calulcate the share the counter and ",
+root_agent = LlmAgent(name="agentcallbacks",model="",instruction="You are a LLM.We are here to demonstrate agent callbacks. You have below tool available to calulcate the share the counter .Share the user the number of hits by finding the value of counter from after_agent_callback tool ",
                                 description="agent to demonstarte agent callback",before_agent_callback=[before_agent_callback],after_agent_callback=[after_agent_callback])
