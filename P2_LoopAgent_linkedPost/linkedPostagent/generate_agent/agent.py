@@ -4,7 +4,7 @@ from datetime import datetime
 # from google.adk.tools.tool_context import ToolContext
 
 def generate_time()->dict:
-    return {"current_time":datetime.now().strftime("%y-%m-%d %H:$M")}
+    return {"current_time":datetime.now().strftime("%y-%m-%d %H:%M")}
 
 generate_agent = LlmAgent(model="gemini-2.0-flash",name="generate_agent",description="Agent to generate review for linkedin post",
                             instruction="""
