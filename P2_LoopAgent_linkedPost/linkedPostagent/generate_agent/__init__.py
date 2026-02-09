@@ -1,1 +1,1 @@
-from . import agent
+from .agent import generate_agent
