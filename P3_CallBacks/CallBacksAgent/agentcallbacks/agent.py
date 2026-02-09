@@ -4,7 +4,7 @@ from typing import Optional
 from google.genai import types
 from datetime import datetime
 
-def before_agent_callback(text:str,callback_context:CallbackContext)->Optional[types.Content]:
+def before_agent_callback(callback_context:CallbackContext)->Optional[types.Content]:
     """
      before_agent_callback called before exectuing the agent 
     
@@ -30,7 +30,7 @@ def before_agent_callback(text:str,callback_context:CallbackContext)->Optional[t
         print("exception as {e}")
     
 
-def after_agent_callback(text:str,callback_context:CallbackContext)->Optional[types.Content]:
+def after_agent_callback(callback_context:CallbackContext)->Optional[types.Content]:
     """
      after agent callback called before exectuing the agent 
     
