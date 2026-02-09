@@ -35,7 +35,7 @@ def review_push_suggestions(toolcontext:ToolContext)->dict:
 
 
 review_agent = LlmAgent(model="gemini-2.0-flash",name="review_agent",description="Agent to generate review for linkedin post",
-                            instructions="""
+                            instruction="""
                                 You are an expert in reviwing Linkedin posts.
                                 Review a linkedin post containing the course contents of course for AI from Mr.ABC.
                                 Please consider below points while reviwing the content:
@@ -47,4 +47,4 @@ review_agent = LlmAgent(model="gemini-2.0-flash",name="review_agent",description
                                 You have access to below tool for validating content size:
                                 - review_push_suggestions 
 
-""",tool=[review_push_suggestions],output_key="suggestion")
+""",tools=[review_push_suggestions],output_key="suggestion")
