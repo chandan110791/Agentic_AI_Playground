@@ -63,4 +63,7 @@ review_agent = LlmAgent(model="gemini-2.0-flash",name="review_agent",description
                                 You have access to below tool for validating content size:
                                 - review_push_suggestions 
 
+                                If the review is fine with no chanegs required then exit using below tool:
+                                - exit_loop
+
 """,tools=[review_push_suggestions,exit_loop],output_key="suggestion")
