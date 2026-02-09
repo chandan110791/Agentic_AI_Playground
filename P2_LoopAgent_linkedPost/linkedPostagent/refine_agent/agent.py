@@ -9,8 +9,8 @@ refine_agent = LlmAgent(model="gemini-2.0-flash",name="refine_agent",description
                                 - Do keep and eye for tone and length
 
                                 You have access to below information:
-                                - generated content  {generated_content}
-                                - suggestions {suggestion_to_refine}
+                                - generated content: {generated_content}
+                                - suggestions: {suggestion_to_refine}
 
 
 """,output_key="refined_content")

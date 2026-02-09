@@ -37,10 +37,11 @@ def review_push_suggestions(text:str,tool_context:ToolContext)->dict:
         print(f"error while accessing content generated{e}")
 
 from typing import Dict,Any
-def exit_loop(tool_context:ToolContext) -> Dict[str,Any]:
+def exit_loop(text:str, tool_context:ToolContext) -> Dict[str,Any]:
     """
         Function to exit the loop
         args:
+         text: The text being reviewed
          Tool context with access to the state
 
         return : Empty Dictionary
@@ -66,4 +67,4 @@ review_agent = LlmAgent(model="gemini-2.0-flash",name="review_agent",description
                                 If the review_status is pass with no chanegs required then exit using below tool:
                                 - exit_loop
 
-""",tools=[review_push_suggestions,exit_loop],output_key="suggestion")
+""",tools=[review_push_suggestions,exit_loop],output_key="suggestion_to_refine")
