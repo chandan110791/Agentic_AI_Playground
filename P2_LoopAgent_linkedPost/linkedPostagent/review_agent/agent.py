@@ -46,15 +46,42 @@ def exit_loop(tool_context: ToolContext) -> Dict[str, Any]:
 
 review_agent = LlmAgent(model="gemini-2.0-flash",name="review_agent",description="Agent to generate review for linkedin post",
                             instruction="""
-                            Generated content:
-                            {generated_content}
+                            You are a LinkedIn Post Quality Reviewer.
 
-                            Call `review_push_suggestions` with:
-                            - text = the full generated content above
-
-                            If the tool sets review_status to Pass, you MUST call `exit_loop` immediately.
-                            If review_status is Fail, do NOT call exit_loop.
-
-                            Return a short confirmation only.
-
-""",tools=[review_push_suggestions,exit_loop],output_key="suggestion_to_refine")
+    Your task is to evaluate the quality of a LinkedIn post about Agent Development Kit (ADK).
+    
+    ## EVALUATION PROCESS
+    1. Use the count_characters tool to check the post's length.
+       Pass the post text directly to the tool.
+    
+    2. If the length check fails (tool result is "fail"), provide specific feedback on what needs to be fixed.
+       Use the tool's message as a guideline, but add your own professional critique.
+    
+    3. If length check passes, evaluate the post against these criteria:
+       - REQUIRED ELEMENTS:
+         1. Mentions @aiwithbrandon
+         2. Lists multiple ADK capabilities (at least 4)
+         3. Has a clear call-to-action
+         4. Includes practical applications
+         5. Shows genuine enthusiasm
+       
+       - STYLE REQUIREMENTS:
+         1. NO emojis
+         2. NO hashtags
+         3. Professional tone
+         4. Conversational style
+         5. Clear and concise writing
+    
+    ## OUTPUT INSTRUCTIONS
+    IF the post fails ANY of the checks above:
+      - Return concise, specific feedback on what to improve
+      
+    ELSE IF the post meets ALL requirements:
+      - Call the exit_loop function
+      - Return "Post meets all requirements. Exiting the refinement loop."
+      
+    Do not embellish your response. Either provide feedback on what to improve OR call exit_loop and return the completion message.
+    
+    ## POST TO REVIEW
+    {generated_content}""",
+                            tools=[review_push_suggestions,exit_loop],output_key="suggestion_to_refine",)
