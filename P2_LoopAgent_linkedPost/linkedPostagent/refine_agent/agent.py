@@ -10,7 +10,7 @@ refine_agent = LlmAgent(model="gemini-2.0-flash",name="refine_agent",description
 
                                 You have access to below information:
                                 - generated content  {generated_content}
-                                - suggestions {suggestion}
+                                - suggestions {suggestion_to_refine}
 
 
 """,output_key="refined_content")
