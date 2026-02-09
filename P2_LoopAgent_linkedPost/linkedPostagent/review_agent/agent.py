@@ -2,6 +2,8 @@ from google.adk.agents import LlmAgent
 
 from datetime import datetime
 from google.adk.tools.tool_context import ToolContext
+from google.adk.tools.tool_context import ToolContext
+from typing import Dict, Any
 
 def review_push_suggestions(text:str,tool_context:ToolContext)->dict:
     """
@@ -36,35 +38,23 @@ def review_push_suggestions(text:str,tool_context:ToolContext)->dict:
     except Exception as e:
         print(f"error while accessing content generated{e}")
 
-from typing import Dict,Any
-def exit_loop(text:str, tool_context:ToolContext) -> Dict[str,Any]:
-    """
-        Function to exit the loop
-        args:
-         text: The text being reviewed
-         Tool context with access to the state
 
-        return : Empty Dictionary
-    """
-    print("Exiting")
+def exit_loop(tool_context: ToolContext) -> Dict[str, Any]:
     tool_context.actions.escalate = True
     return {}
 
 
 review_agent = LlmAgent(model="gemini-2.0-flash",name="review_agent",description="Agent to generate review for linkedin post",
                             instruction="""
-                                You are an expert in reviwing Linkedin posts.
-                                Review a linkedin post containing the course contents of course for AI from Mr.ABC.
-                                Please consider below points while reviwing the content:
-                                - Do keep and eye for tone and length
+                            Generated content:
+                            {generated_content}
 
-                                You have access to below information:
-                                - generated content {generated_content}
+                            Call `review_push_suggestions` with:
+                            - text = the full generated content above
 
-                                You have access to below tool for validating content size:
-                                - review_push_suggestions 
+                            If the tool sets review_status to Pass, you MUST call `exit_loop` immediately.
+                            If review_status is Fail, do NOT call exit_loop.
 
-                                If the review_status is pass with no chanegs required then exit using below tool:
-                                - exit_loop
+                            Return a short confirmation only.
 
 """,tools=[review_push_suggestions,exit_loop],output_key="suggestion_to_refine")
