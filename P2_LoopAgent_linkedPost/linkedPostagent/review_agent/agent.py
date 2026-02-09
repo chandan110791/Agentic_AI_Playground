@@ -7,20 +7,20 @@ from typing import Dict, Any
 
 def review_push_suggestions(text:str,tool_context:ToolContext)->dict:
     """
-        Review the text generated and share the required suggestions back to state
+        Review the text generated and update state with oberved suggestions.
         Args:
             toolcontext to get the generated content 
         
-            Returns:
+        Returns:
             dictionary with suggestions after parsing the text generated
         
     """
-    text_generated = text
     len_generated  = 0
     diff = 0
     MAX_LENGTH = 1000
     MIN_LENGTH = 500
     try:
+        text_generated = (text or "").strip()
         if text_generated and len(text_generated)>0:
             len_generated = len(text_generated)
             if len_generated > MAX_LENGTH:
@@ -34,7 +34,9 @@ def review_push_suggestions(text:str,tool_context:ToolContext)->dict:
             else:
                   tool_context.state["review_status"]="Pass"
                   return {"suggestion":f"text is fine, no change in length required, its between   maxlength of {MAX_LENGTH} and minlength of {MIN_LENGTH}"}
-        
+        else:
+            tool_context.state["review_status"]="Fail"
+            return {"suggestion":"text is empty, please generate some content"}
     except Exception as e:
         print(f"error while accessing content generated{e}")
 
