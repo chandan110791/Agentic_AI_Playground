@@ -1,0 +1,17 @@
+{
+  "name": "agents/my_agent",
+  "displayName": "My Agent",
+  "description": "AI agent built with Google's Agent Development Kit",
+  "endpoints": [
+    {
+      "type": "A2A_AGENT_RUN_V1",
+      "uri": "/run",
+      "description": "The main endpoint to execute the agent with a user message"
+    }
+  ],
+  "openApi": {
+    "uri": "/openapi.json"
+  },
+  "version": "1.0.0"
+}
+

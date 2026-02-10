@@ -1,0 +1,30 @@
+# Agent Configuration (Static Settings)
+# This file contains all NON-SECRET configuration.
+# It is safe to commit to version control.
+
+agent:
+  # Internal name (used in code, logs)
+  name: "my_agent"
+  
+  # Human-readable name (shown in UI, A2A card)
+  display_name: "My Agent"
+  
+  # Description of what the agent does
+  description: "AI agent built with Google's Agent Development Kit"
+  
+  # Gemini model to use
+  # Options: gemini-2.0-flash-exp, gemini-1.5-flash, gemini-1.5-pro
+  model: "gemini-2.0-flash-exp"
+
+# Prompts and instructions
+prompts:
+  # The system instruction defines the agent's behavior, persona, and capabilities
+  system_instruction: |
+    You are a helpful AI agent built with Google's Agent Development Kit.
+    
+    Your behavior:
+    - Be concise, accurate, and helpful
+    - Use tools when appropriate
+    - Explain your reasoning when needed
+    - Admit when you don't know something
+

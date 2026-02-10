@@ -1,0 +1,53 @@
+# Don't copy these to Docker image
+
+# Git
+.git/
+.gitignore
+.github/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment files
+.env
+*.env
+!.env.example
+
+# Documentation (not needed in container)
+docs/
+README.md
+
+# Development files
+justfile
+.python-version
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Tests
+tests/
+
+# Misc
+.DS_Store
+*.log
+*.tmp
+

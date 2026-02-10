@@ -1,0 +1,65 @@
+# Google ADK Agent Template Commands
+
+# List all commands
+default:
+    @just --list
+
+# Initial setup
+setup:
+    @command -v uv >/dev/null 2>&1 || (curl -LsSf https://astral.sh/uv/install.sh | sh)
+    @uv sync
+    @echo "✅ Setup complete. Copy .env.example to .env and add your GEMINI_API_KEY"
+
+# Sync dependencies
+sync:
+    @uv sync
+
+# Start chat UI (development)
+web:
+    @uv run adk web
+
+# Start CLI chat (development)
+chat:
+    @uv run adk chat
+
+# Start production server
+prod:
+    @uv run uvicorn main:app --reload --host 0.0.0.0 --port 8080
+
+# Run linter
+lint:
+    @uv run ruff check .
+
+# Format code
+format:
+    @uv run ruff format .
+
+# Type check
+typecheck:
+    @uv run mypy agent/ config/ main.py
+
+# Run tests
+test:
+    @uv run pytest tests/ -v
+
+# Run all checks
+check: lint typecheck test
+    @echo "✅ All checks passed"
+
+# Validate customization
+validate:
+    @uv run python scripts/validate.py
+
+# Clean cache
+clean:
+    @find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+    @find . -type d -name ".*_cache" -exec rm -rf {} + 2>/dev/null || true
+    @find . -type f -name "*.pyc" -delete 2>/dev/null || true
+
+# Build Docker image
+docker-build:
+    @docker build -f docker/Dockerfile -t my-agent:latest .
+
+# Run Docker container
+docker-run:
+    @docker run -p 8080:8080 --env-file .env my-agent:latest
